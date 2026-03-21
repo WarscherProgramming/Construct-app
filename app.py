@@ -153,6 +153,16 @@ st.header("Construction Tool")
 #------------------------------
 # HELPER FUNCTIONS
 #------------------------------
+st.markdown("""
+<style>
+.divider {
+    border-left: 2px solid #ddd;
+    height: 100%;
+    margin: 0 10px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def company_selector(label="Company", options=None):
     if options is None:
         options =["Design Drywall (Framers and Hangers)", 
@@ -182,15 +192,18 @@ def show_success_message(message):
     time.sleep(2)
     placeholder.empty()
 
+#-----------------------------
+#PROJECT AND DATE INPUT
+#-----------------------------
 st.subheader("Project")
 
 project = st.selectbox("Select Project", ["Apex Garages", "Apex Clubhouse"])
 
-st.subheader("Daily Man Power")
-
 date = st.date_input("Date")
 
-#session state to store entries, descriptions, notes, and inspections
+#--------------------------------
+#SESSION STATES FOR USER INPUT'S
+#--------------------------------
 if "entries" not in st.session_state:
     st.session_state.entries = []
 
@@ -206,99 +219,105 @@ if "timecards" not in st.session_state:
 # -----------------------------
 # USER INPUT SECTIONS
 # -----------------------------
-col1, col2, col3, col4 = st.columns(4)
 
+col1, div1, col2, div2, col3 = st.columns([1, 0.05, 1, 0.05, 1])
 with col1:
+    st.subheader("Daily Man Power")
+    
+
     company = company_selector()
 
-with col2:
-    man_power = st.selectbox("Man Power", range(1, 100))
+    log_col1, log_col2 = st.columns(2)
+    with log_col1:
+        man_power = st.selectbox("Man Power", range(1, 100))
 
-with col3:
-    hours = st.selectbox("Hours Worked", range(1, 13))
+    with log_col2:
+        hours = st.selectbox("Hours Worked", range(1, 13))
 
-with col4:
     description = st.text_input("Description: ")
 
-total_hours = man_power * hours
+    total_hours = man_power * hours
 
-if st.button("Add Entry", key="add_entry"):
+    if st.button("Add Entry", key="add_entry"):
 
-    if not description.strip():
-        st.warning("Please enter a description before adding the entry.")
-        st.stop()
+        if not description.strip():
+            st.warning("Please enter a description before adding the entry.")
+            st.stop()
 
-    entry = {
-        "date": date,
-        "project": project,
-        "company": company,
-        "man_power": man_power,
-        "description": description,
-        "hours_worked": hours,
-        "total_hours": total_hours,
-    }
+        entry = {
+            "date": date,
+            "project": project,
+            "company": company,
+            "man_power": man_power,
+            "description": description,
+            "hours_worked": hours,
+            "total_hours": total_hours,
+        }
     
-    st.session_state.entries.append(entry)
-    show_success_message("Entry added successfully!")
+        st.session_state.entries.append(entry)
+        show_success_message("Entry added successfully!")
+
+with div1:
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
  
-st.subheader("Inspections")
+with col2:
+    st.subheader("Inspections")
 
-col1, col2, col3 = st.columns(3)
-with col1:
     inspection = st.text_input("Inspection Details: ")
-
-with col2: 
+ 
     inspection_notes = st.text_input("Inspection Notes: ")
 
-with col3:
     result = st.selectbox("Result", ["Pass", "Partially Pass", "Fail"])
 
-if st.button("Add Inspection", key="add_inspection"):
+    if st.button("Add Inspection", key="add_inspection"):
 
-    if not inspection.strip():
-        st.warning("Please enter inspection details before adding the entry.")
-        st.stop()
+        if not inspection.strip():
+            st.warning("Please enter inspection details before adding the entry.")
+            st.stop()
 
-    if not inspection_notes.strip():
-        st.warning("Please enter inspection notes before adding the entry.")
-        st.stop()
+        if not inspection_notes.strip():
+            st.warning("Please enter inspection notes before adding the entry.")
+            st.stop()
 
-    inspection_entry = {
-        "date": date,
-        "project": project,
-        "inspection": inspection,
-        "inspection_notes": inspection_notes,
-        "result": result,
-        }
+        inspection_entry = {
+            "date": date,
+            "project": project,
+            "inspection": inspection,
+            "inspection_notes": inspection_notes,
+            "result": result,
+            }
 
-    st.session_state.inspections.append(inspection_entry)
-    show_success_message("Inspection entry added successfully!")
+        st.session_state.inspections.append(inspection_entry)
+        show_success_message("Inspection entry added successfully!")
 
-st.subheader("Daily Notes")
+with div2:
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+with col3:
 
-with col1:
+    st.subheader("Daily Notes")
+
     sub_contractor = company_selector(label='Sub Contractor')
 
-with col2:
     note = st.text_input("Subcontractor Delays/Issues: ")
 
-if st.button("Add Notes", key="add_notes"):
+    severity_level = st.selectbox("Severity", ["Low", "Medium", "High"])
 
-    if not note.strip():
-        st.warning("Please enter a note before adding the entry.")
-        st.stop()
+    if st.button("Add Notes", key="add_notes"):
 
-    notes_entry = {
-        "date": date,
-        "project": project,
-        "company": sub_contractor,
-        "notes": note
-        }
+        if not note.strip():
+            st.warning("Please enter a note before adding the entry.")
+            st.stop()
+
+        notes_entry = {
+            "date": date,
+            "project": project,
+            "company": sub_contractor,
+            "notes": note
+            }
     
-    st.session_state.notes.append(notes_entry)
-    show_success_message("Notes entry added successfully!")
+        st.session_state.notes.append(notes_entry)
+        show_success_message("Notes entry added successfully!")
 
 st.subheader("Timecard")
 col1, col2 = st.columns(2)
