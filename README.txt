@@ -37,8 +37,8 @@ Installation
 
 1. Clone the repository:
 
-git clone https://github.com/WarscherProgramming/Construction-tool.git
-cd Construction-tool
+git clone https://github.com/WarscherProgramming/Construct-app.git
+cd Construct-app
 
 2. Install dependencies:
 
