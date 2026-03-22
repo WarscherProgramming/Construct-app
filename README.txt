@@ -1,77 +1,100 @@
-Construction Daily Logging Tool
+# 🏗️ Construct App
 
-A Streamlit-based web application for tracking daily construction activity including manpower, inspections, subcontractor notes, and employee timecards.
+## 📌 Overview
 
----
+Construct App is a web-based construction project tracking tool built with Streamlit. It is designed to help streamline daily field operations by centralizing key project data such as manpower, inspections, timecards, and notes into a single, easy-to-use dashboard.
 
-Features
-
-* Track daily manpower and work descriptions
-* Log inspections with results and notes
-* Record subcontractor delays/issues
-* Manage employee timecards
-* Persistent storage using SQLite database
+This application replaces manual tracking methods (e.g., paper logs or scattered spreadsheets) with a structured, data-driven workflow.
 
 ---
 
-Tech Stack
+## 🚀 Features
 
-* Python
-* Streamlit
-* SQLite
-* Pandas
-
----
-
-Project Structure
-
-construction-tool/
-├── app.py
-├── database.py
-├── requirements.txt
-├── README.md
+* 📅 **Daily Logs** – Track manpower and on-site activity
+* 🛠️ **Inspections** – Record and monitor inspection data
+* ⏱️ **Timecards** – Log and review worker hours
+* 📝 **Notes** – Store project-related updates and comments
+* 📊 **Dashboard** – Visualize project data using interactive charts
+* 🔍 **Filtering** – Filter data by project for better insights
 
 ---
 
-Installation
+## 🧰 Tech Stack
 
-1. Clone the repository:
+* **Frontend / App Framework:** Streamlit
+* **Database:** SQLite
+* **Data Processing:** Pandas
+* **Visualization:** Plotly
 
+---
+
+## 📷 Screenshots
+
+![Dashboard](images/Dashboard.png)
+![main](images/main.png)
+![summary](images/Summary.png)
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+
+```bash
 git clone https://github.com/WarscherProgramming/Construct-app.git
 cd Construct-app
+```
 
-2. Install dependencies:
+### 2. Create and activate a virtual environment
 
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-3. Run the app:
+### 4. Run the application
 
+```bash
 streamlit run app.py
+```
 
 ---
 
-Database
+## 🗄️ Database
 
-This app uses SQLite for lightweight, file-based data storage.
+The application uses a local SQLite database (`construction.db`) to store all project data.
 
-Tables:
-
-* entries
-* notes
-* inspections
-* timecards
+> Note: You may see sample/test data included for demonstration purposes.
 
 ---
 
-Future Improvements
+## 🎯 Purpose
 
-* Replace session state with direct database writes
-* Add filtering (date, project, company)
-* Add edit/delete functionality
-* Deploy to Streamlit Cloud
+This project was built to:
+
+* Practice full-stack Python development
+* Create a real-world tool for construction workflow management
+* Explore data visualization and dashboard design
 
 ---
 
-Author
+## 🔮 Future Improvements
 
-Zachary Warscher
+* User authentication and role-based access
+* Cloud deployment (AWS, Azure, or Streamlit Cloud)
+* Mobile-friendly UI enhancements
+* Export reports (PDF/Excel)
+* Improved data validation and error handling
+
+---
+
+## 👤 Author
+
+**Zachary Warscher**
+GitHub: https://github.com/WarscherProgramming
