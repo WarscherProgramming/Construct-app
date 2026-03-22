@@ -4,13 +4,26 @@ A Streamlit-based web application for tracking daily construction activity inclu
 
 ---
 
+How It Works
+
+1. Data is stored in a SQLite database (`construction.db`)
+2. The dashboard loads data using pandas
+3. Users can:
+   - Select a project
+   - Filter by date range
+4. Data is dynamically filtered and visualized using Plotly charts
+
+
 Features
 
-* Track daily manpower and work descriptions
-* Log inspections with results and notes
-* Record subcontractor delays/issues
-* Manage employee timecards
-* Persistent storage using SQLite database
+* Interactive dashboard for construction project data
+* Project-based filtering across all datasets
+* Date range filtering for dynamic analysis
+* Visualizations:
+  - Manpower by company
+  - Total hours by company
+* Data stored and retrieved from SQLite database
+* Built with Streamlit for fast UI development
 
 ---
 
@@ -20,6 +33,7 @@ Tech Stack
 * Streamlit
 * SQLite
 * Pandas
+* Plotly 
 
 ---
 
