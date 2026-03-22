@@ -224,7 +224,6 @@ col1, div1, col2, div2, col3 = st.columns([1, 0.05, 1, 0.05, 1])
 with col1:
     st.subheader("Daily Man Power")
     
-
     company = company_selector()
 
     log_col1, log_col2 = st.columns(2)
@@ -351,7 +350,6 @@ st.dataframe(df, width="content")
 st.dataframe(df2, width="content")
 st.dataframe(df3, width="content")
 st.dataframe(df4, width="content")
-
 
 if st.button("Save to Database", key="save_database"):
     for entry in st.session_state.entries:
