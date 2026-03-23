@@ -27,13 +27,12 @@ Features
 
 ---
 
-Tech Stack
+## 🧰 Tech Stack
 
 * Python
 * Streamlit
 * SQLite
 * Pandas
-* Plotly 
 
 ---
 
@@ -53,14 +52,24 @@ Installation
 
 git clone https://github.com/WarscherProgramming/Construct-app.git
 cd Construct-app
+```
 
-2. Install dependencies:
+### 2. Create and activate a virtual environment
 
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-3. Run the app:
+### 4. Run the application
 
-streamlit run "Daily Log.py"
+streamlit run app.py
 
 ---
 
@@ -70,22 +79,23 @@ This app uses SQLite for lightweight, file-based data storage.
 
 Tables:
 
-* entries
-* notes
-* inspections
-* timecards
+* Practice full-stack Python development
+* Create a real-world tool for construction workflow management
+* Explore data visualization and dashboard design
 
 ---
 
-Future Improvements
+## 🔮 Future Improvements
 
-* Replace session state with direct database writes
-* Add filtering (date, project, company)
-* Add edit/delete functionality
-* Deploy to Streamlit Cloud
+* User authentication and role-based access
+* Cloud deployment (AWS, Azure, or Streamlit Cloud)
+* Mobile-friendly UI enhancements
+* Export reports (PDF/Excel)
+* Improved data validation and error handling
 
 ---
 
-Author
+## 👤 Author
 
-Zachary Warscher
+**Zachary Warscher**
+GitHub: https://github.com/WarscherProgramming
