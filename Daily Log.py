@@ -148,7 +148,7 @@ init_db()
 # -----------------------------
 st.set_page_config(page_title="Construction Tool", layout="wide")
 
-st.header("Construction Tool")
+st.header("Daily Construction Log")
 
 #------------------------------
 # HELPER FUNCTIONS

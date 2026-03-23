@@ -103,3 +103,32 @@ with col2:
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.write("No data available")
+
+
+
+st.subheader("Inspection Status")
+
+df = inspections_df.copy()[["date", "project", "inspection", "inspection_notes", "result"]]
+df = df.rename(columns={
+    "date": "Date",
+    "project": "Project",
+    "inspection": "Inspection Type",
+    "inspection_notes": "Notes",
+    "result": "Result"
+})
+df["Date"] = df["Date"].dt.strftime("%m-%d-%Y")
+
+st.dataframe(df)
+
+st.subheader("Subcontactor Issues/Delays")
+
+df2 = notes_df.copy()[["date", "project", "company", "notes"]]
+df2 = df2.rename(columns={
+    "date": "Date",
+    "project": "Project",
+    "company": "Company",
+    "notes": "Notes"
+})  
+df2["Date"] = df2["Date"].dt.strftime("%m-%d-%Y")
+
+st.dataframe(df2)

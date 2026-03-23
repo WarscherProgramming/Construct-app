@@ -60,7 +60,7 @@ pip install -r requirements.txt
 
 3. Run the app:
 
-streamlit run app.py
+streamlit run "Daily Log.py"
 
 ---
 
