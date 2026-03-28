@@ -143,6 +143,13 @@ def insert_timecard(timecard):
 
 init_db()
 
+def load_table_by_date(table, selected_date):
+    conn = sq.connect("construction.db")
+    df = pd.read_sql_query(
+        f"SELECT * FROM {table} WHERE date = ?", conn, params=(str(selected_date),))
+    conn.close()
+    return df
+
 # -----------------------------
 # STREAMLIT APP CONFIG
 # -----------------------------
@@ -186,6 +193,13 @@ def company_selector(label="Company", options=None):
                 ]
     return st.selectbox(label, options)
 
+def delete_row(table, row_id):
+    conn = sq.connect("construction.db")
+    cursor = conn.cursor()
+    cursor.execute(f"DELETE FROM {table} WHERE id = ?", (row_id,))
+    conn.commit()
+    conn.close()
+
 def show_success_message(message):
     placeholder = st.empty()
     placeholder.success(message)
@@ -200,21 +214,6 @@ st.subheader("Project")
 project = st.selectbox("Select Project", ["Apex Garages", "Apex Clubhouse"])
 
 date = st.date_input("Date")
-
-#--------------------------------
-#SESSION STATES FOR USER INPUT'S
-#--------------------------------
-if "entries" not in st.session_state:
-    st.session_state.entries = []
-
-if "notes" not in st.session_state:
-    st.session_state.notes = []
-
-if "inspections" not in st.session_state:
-    st.session_state.inspections = []
-
-if "timecards" not in st.session_state:
-    st.session_state.timecards = []
 
 # -----------------------------
 # USER INPUT SECTIONS
@@ -253,7 +252,7 @@ with col1:
             "total_hours": total_hours,
         }
     
-        st.session_state.entries.append(entry)
+        insert_entry(entry)
         show_success_message("Entry added successfully!")
 
 with div1:
@@ -286,7 +285,7 @@ with col2:
             "result": result,
             }
 
-        st.session_state.inspections.append(inspection_entry)
+        insert_inspection(inspection_entry)
         show_success_message("Inspection entry added successfully!")
 
 with div2:
@@ -315,7 +314,7 @@ with col3:
             "notes": note
             }
     
-        st.session_state.notes.append(notes_entry)
+        insert_entry(notes_entry)
         show_success_message("Notes entry added successfully!")
 
 st.subheader("Timecard")
@@ -333,7 +332,7 @@ if st.button("Add Timecard", key="add_timecard"):
         "hours_worked": hours_worked
         }
     
-    st.session_state.timecards.append(timecard_entry)
+    insert_timecard(timecard_entry)
     show_success_message("Timecard entry added successfully!")
 
 # -----------------------------
@@ -341,29 +340,12 @@ if st.button("Add Timecard", key="add_timecard"):
 # -----------------------------
 st.subheader("Daily Summary")
 
-df = pd.DataFrame(st.session_state.entries)
-df2 = pd.DataFrame(st.session_state.notes)
-df3 = pd.DataFrame(st.session_state.inspections)
-df4 = pd.DataFrame(st.session_state.timecards)
+df = load_table_by_date("entries", date)
+df2 = load_table_by_date("notes", date)
+df3 = load_table_by_date("inspections", date)
+df4 = load_table_by_date("timecards", date)
 
-st.dataframe(df, width="content")
-st.dataframe(df2, width="content")
-st.dataframe(df3, width="content")
-st.dataframe(df4, width="content")
-
-if st.button("Save to Database", key="save_database"):
-    for entry in st.session_state.entries:
-        insert_entry(entry)
-    for note in st.session_state.notes:
-        insert_notes(note)
-    for inspection in st.session_state.inspections:
-        insert_inspection(inspection)
-    for timecard in st.session_state.timecards:
-        insert_timecard(timecard)
-
-    show_success_message("Data saved to database successfully!")
-    st.session_state.entries.clear()
-    st.session_state.notes.clear()
-    st.session_state.inspections.clear()
-    st.session_state.timecards.clear()
-    st.rerun()
+st.dataframe(df,use_container_width=True)
+st.dataframe(df2,use_container_width=True)
+st.dataframe(df3,use_container_width=True)
+st.dataframe(df4,use_container_width=True)
